@@ -1,0 +1,167 @@
+/* Fonts */
+@font-face {
+  font-family: "Exo Regular";
+  src: url("/fonts/Exo-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Exo Bold";
+  src: url("/fonts/Exo-Bold.woff2") format("woff2");
+  font-weight: 400;  
+  font-style: normal;
+}
+
+/* Project var */
+:root {
+  --font-family-regular: 'Exo Regular', sans-serif;
+  --font-family-bold: 'Exo Bold', sans-serif;
+  --font-size-big: 48px;
+  --font-size-standart: 20px;
+  --font-size-little: 14px;
+  --color-background: #F9FAFC;
+  --color-base: #12121C;
+  --color-accent1: #2D2E46;
+  --color-accent2: #5F6078; 
+  --input-height: 44px;
+  --container-padding-x: 15px;
+  --transition-duration: 0.3s;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  font-family: var(--font-family-regular);
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--color-base);
+  background-color: var(--color-background);
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content:space-between;
+  padding: 32px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-light-gray)
+}
+
+button,
+input {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+}
+
+a:hover {
+  color: var(--color-light)
+}
+
+#main-title {
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-big);
+  line-height: 48px;
+  color: var(--color-base);
+  margin-bottom: 16px;
+}
+
+#follow-text {
+  font-size: var(--font-size-standart);
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-accent1);
+  margin-bottom: 32px;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: var(--input-height);
+  max-width: 500px;
+}
+
+input {
+  height:  100%;
+  width: 100%; 
+  max-width: 100%; 
+  text-indent: 10px;
+  border: 1px solid #EAEAEA;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px 0px #0000000D;
+  margin-right: 16px;
+}
+
+button {
+  height: 38px;
+  border-radius: 50px;
+  color: #FFFFFF;
+  border: 1px solid #0F5E39;
+  background: #137547;
+  box-shadow: 0px 1px 1px 0px #FFFFFF33 inset,   
+              0px -2px 1px 0px #00000033 inset; 
+}
+
+button span {   
+  font-family: var(--font-family-bold);
+  font-size: var(--font-size-little);
+  line-height: 14px;  
+  font-weight: 600;
+  text-align: center;
+  padding: 12px 16px 12px 16px;
+}
+
+input::placeholder {  
+  font-size: var(--font-size-little);
+  line-height: var(--font-size-little);
+  color: black;
+}
+
+#willback-text {
+  font-size: var(--font-size-little);
+  color: var(--color-accent2);
+  line-height: 20px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+#followus {
+  font-size: var(--font-size-little);
+  color: var(--color-accent2);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.social-links img:first-of-type {
+  margin-right: 12px;
+}
+
+.content-image {
+  background: url("/images/Frame 33.png") left center / cover no-repeat;
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden
+}

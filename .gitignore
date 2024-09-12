@@ -1,2 +1,19 @@
-node_modules
+# Node.js standart files and directories
+node_modules/ 
+npm-debug.log
 package-lock.json
+
+# Cached files and folders 
+.cache/
+dist/
+build/
+temp/
+.tmp/
+logs/
+
+# Secret data
+.env
+
+# IDE and editors
+.vscode/
+.idea/
