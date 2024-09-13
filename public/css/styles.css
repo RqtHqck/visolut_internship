@@ -39,9 +39,21 @@ body {
   background-color: var(--color-background);
 }
 
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .social-media {
+  display: none;
+}
+
 .container {
   display: flex;
-  flex: 1;
+  flex: 1.5;
+  flex-shrink: 1;
   flex-direction: column;
   justify-content:space-between;
   padding: 32px;
@@ -153,15 +165,173 @@ input::placeholder {
   margin-bottom: 16px;
 }
 
-.social-links img:first-of-type {
-  margin-right: 12px;
+.social-media {
+  display: flex;
+  flex-direction: row;
+}
+
+.social-media li:first-child {
+  margin-right: 30px;
 }
 
 .content-image {
-  background: url("/images/Frame 33.png") left center / cover no-repeat;
+  background: url("/images/Tiles bg.png") left center / cover no-repeat;
   flex: 2;
   display: flex;
+  justify-content: right;
   align-items: center;
-  justify-content: center;
-  overflow: hidden
+  overflow: hidden;
+}
+
+.content-image img:not(:first-child) {
+  display: none;
+}
+
+.content-image img {
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 80px);
+  max-height: 725px;
+  object-fit: contain; 
+}
+
+/* For width from 769px to 1439px */
+@media (min-width: 811px) and (max-width: 1439px) {}
+
+/* For width from 321px to 768px */
+@media (min-width: 451px) and (max-width: 810px) {
+  body {
+    flex-direction: column;
+    background-color: #FFFFFF;
+  }
+
+  footer {
+    display: none;
+  }
+
+  .container {
+    justify-content: unset;
+  }
+
+  .header__logo {
+    margin-bottom: 100px;
+  }
+
+  header {
+    align-items:flex-start;
+  }
+
+  header .social-media {
+    display: flex;
+  }
+
+  #willback-text {
+    margin-bottom: 160px;
+  }
+
+  .content-image img:first-child {
+    display: none;
+  }
+
+  .content-image img:not(:first-child):not(:last-child) {
+    display: flex;
+  }
+
+  .content-image {
+    flex: 1;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .content-image img {
+    position: absolute;
+    top: 80px;
+    left: 80px;
+  }
+  form {
+    max-width: unset;
+  }
+} 
+
+/* For width before 320px */
+@media (max-width: 450px) {
+  body {
+    flex-direction: column;
+    background-color: #FFFFFF;
+  }
+
+  footer {
+    display: none;
+  }
+
+  .container {
+    padding: 20px;
+    justify-content: unset;
+  }
+
+  main {
+    text-align: center;
+  }
+
+  .header__logo {
+    margin-bottom: 100px;
+  }
+
+  header {
+    align-items:flex-start;
+  }
+
+  header .social-media {
+    display: flex;
+  }
+
+  #main-title {
+    font-size: 32px;
+    line-height: 32px;
+    margin-bottom: 8px;
+  }
+
+  .content-image img:not(:last-child) {
+    display: none;
+  }
+
+  .content-image img:last-child {
+    display: flex;
+  }
+
+  .content-image {
+    background-image: unset;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Картинка начинается сверху */
+    padding: 20px;
+    overflow: visible; /* Разрешаем изображению выходить за границы контейнера */
+  }
+
+  .content-image img {
+      min-width: 270px;
+      height: auto;
+      max-width: 100%;
+      object-fit: contain; /* Сохраняем пропорции изображения */
+      /* Убираем max-height или другие ограничения по высоте */
+  }
+  
+  form {
+    flex-direction: column;
+    max-width: unset;
+    height: unset;
+  }
+
+  form input {
+    width: 100%;
+    height: var(--input-height);
+    margin-right: unset;
+    text-align: left;
+    margin-bottom: 16px;
+  }
+
+  form button {
+    width: 100%;
+  }
 }
