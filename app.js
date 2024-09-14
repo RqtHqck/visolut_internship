@@ -4,11 +4,11 @@ const bodyParser = require('body-parser');
 const db = require('./config/db')
 const User = require('./models/User')
 const path = require('path');
-// For email validation
-const { check, validationResult } = require('express-validator');
-// Flah messages
-const session = require('express-session');
-const flash = require('express-flash');
+// const router = express.Router();  // Routes
+const { check, validationResult } = require('express-validator');  // For email validation
+
+const session = require('express-session');  // Session
+const flash = require('express-flash');  // Flah messages
 
 
 const port = process.env.PORT;
@@ -26,16 +26,17 @@ app.use(session({
 }));
 app.use(flash());
 
-app.get('/', (req, res) => {
+
+app.get('/', async (req, res) => {
   res.render('index')
 })
 
-app.post('/user/create', [
+
+app.post('/post-user', [
   // email validation (express-validator)
   check('email').isEmail().withMessage('Invalid email'),
 ], async (req, res) => {
 
-  console.log('Request body:', req.body); 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     req.flash('error', 'Incorrect email. Try again');
@@ -47,6 +48,7 @@ app.post('/user/create', [
   try {
     // Попытка создать пользователя
     const user = await User.create({ email });
+    console.log(user.dataValues)
     req.flash('success', 'Your application has been added');    
   } catch (error) {
     console.error('An error occurred when creating the user :', error);
@@ -61,9 +63,60 @@ app.post('/user/create', [
 });
 
 
-// app.post('/user/check', async (req, res) => {
+app.post('/api/user/create', [
+  check('email').isEmail().withMessage('Invalid email'),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
-// })
+  const { email } = req.body;
+
+  try {
+    const user = await User.create({ email });
+    console.log(user.dataValues)
+    return res.status(201).json({ message: 'User created', user });
+  } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+    return res.status(500).json({ error: 'Server error'});
+  }
+});
+
+
+app.post('/api/user/check', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ where: { email } });
+    if (user) {
+      console.log(user.dataValues)
+      return res.status(200).json({ exists: true, message: 'User is exists', user });
+    } else {
+      return res.status(404).json({ exists: false, message: 'User not found' });
+    }
+  } catch {
+    console.error('User verification error:', error);
+    return res.status(500).json({ error: 'Server error' });
+  }
+})
+ 
+
+app.get('/api/user/all', async (req, res) => {
+  try {
+    const users = await User.findAll();
+    if (users) {
+      users.forEach(userModel => console.log(userModel.dataValues))
+      return res.status(200).json({users});
+    } else {
+      return res.status(404).json({ exists: false, message: 'Users not found' });
+    }
+  } catch {
+    console.error('User verification error:', error);
+    return res.status(500).json({ error: 'Server error' });
+  }
+})
  
 
 app.listen(port, () => {
