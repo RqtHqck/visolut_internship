@@ -304,19 +304,18 @@ input::placeholder {
     background-image: unset;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Картинка начинается сверху */
+    align-items: flex-start; 
     padding: 20px;
-    overflow: visible; /* Разрешаем изображению выходить за границы контейнера */
+    overflow: visible; 
   }
 
   .content-image img {
       min-width: 270px;
       height: auto;
       max-width: 100%;
-      object-fit: contain; /* Сохраняем пропорции изображения */
-      /* Убираем max-height или другие ограничения по высоте */
+      object-fit: contain; 
   }
-  
+
   form {
     flex-direction: column;
     max-width: unset;
