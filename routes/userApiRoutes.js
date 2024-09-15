@@ -62,7 +62,6 @@ router.get('/user/check', [
       return res.status(404).json({ exists: false, message: 'User not found' });
     }
   } catch (error) {
-    console.error('User verification error: \n', error);
     return res.status(500).json({ error: 'Server error' });
   }
 });
@@ -79,7 +78,6 @@ router.get('/user/all', async (req, res) => {
       return res.status(404).json({ exists: false, message: 'Users not found' });
     }
   } catch {
-    console.error('User verification error: \n', error);
     return res.status(500).json({ error: 'Server error' });
   }
 })

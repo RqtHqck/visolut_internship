@@ -1,3 +1,4 @@
+
 # Onlyjobs
 
 This application allows users to submit requests, which are stored in a MySQL database.
@@ -10,23 +11,40 @@ This application allows users to submit requests, which are stored in a MySQL da
 - Stores valid email addresses in the database.
 - Provides an API for checking/create/show.
 
-
 ## Installation
 
 1. Clone my repository on your pc:
+
 ```bash
 git clone https://github.com/RqtHqck/visolut_internship.git
 ```
+
 2. In project directory:
+
 ```bash
 npm install
 ```
-3. Create your .env file relying on my .env.example file. 
-4. Set up your MySQL database by importing the provided SQL file or running the Sequelize migrations:
-```
 
-```
+3. Create your .env file relying on my .env.example file.
+4. Set up your MySQL database by importing the provided SQL file or running the Sequelize migrations:
+
+   ```bash
+   npx sequelize-cli db:migrate
+   ```
+
+   For new migrations:
+
+   ```bash
+   npx sequelize-cli migration:generate --name <add-new-field-to-users>
+   ```
+
+   Decline migrations:
+
+   ```
+   npx sequelize-cli db:migrate:undo:all
+   ```
 5. Run the application:
+
 ```bash
 npm start
 ```
@@ -44,11 +62,10 @@ npm start
     GET /api/user/all – Retrieves all submitted email addresses.
 
 ## Third-party API
- 
-    Used https://hunter.io/api-keys API for email validation. 
+
+    Used https://hunter.io/api-keys API for email validation.
     Their API:
     https://api.hunter.io/v2/email-verifier?email=email&api_key=api_key
-  
 
 ## Technologies
 

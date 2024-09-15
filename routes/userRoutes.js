@@ -26,7 +26,7 @@ router.post('/post-user', [
       console.log(user.dataValues)
       req.flash('success', 'Your application has been added'); // Flash the message into html 
     } catch (error) {
-      console.error('An error occurred when creating the user :', error);
+      console.error('An error occurred when creating the user');
   
       if (error.name === 'SequelizeUniqueConstraintError') {
         req.flash('error', 'This email is already registered');
