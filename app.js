@@ -12,6 +12,16 @@ app.set('view engine', 'ejs');  // Templates EJS
 app.use(express.static(path.join(__dirname, 'public')));  // Static files in public
 app.use(express.urlencoded({extended: false}))
 app.use(express.json());  
+app.use(require('compression')());  // Response compression 
+app.use(require('helmet')()); // Defense from the XSS attacks
+// Limit requests num, prevented DDoS attacs
+const rateLimit = require('express-rate-limit');
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 минут
+  max: 100, // Ограничение 100 запросов с одного IP
+});
+app.use(limiter);
+
 // Session & flashes
 app.use(require('express-session')({ secret: process.env.SESSION_KEY, resave: false, saveUninitialized: true }));
 app.use(require('express-flash')());

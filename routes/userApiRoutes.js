@@ -1,7 +1,9 @@
 // routes/userApiRoutes.js
 const express = require('express');
+const axios = require('axios');
 const { check, validationResult } = require('express-validator');
 const User = require('../models/User')
+const isEmailValid = require('../utils/emailValidator') // Validator email 
 const router = express.Router();
 
 
@@ -16,18 +18,24 @@ router.post('/user/create', [
   }
 
   const { email } = req.body; // Collect email from request
+  const valid = await isEmailValid(email);
 
-  try {
-    const userExists = await User.findOne({ where: { email } });  // Try find user in db if exists
-    if (userExists) {
-      return res.status(400).json({ error: 'Email already registered' });
+  if (valid) {
+    try {
+      const userExists = await User.findOne({ where: { email } });  // Try find user in db if exists
+
+      if (userExists) {
+        return res.status(400).json({ error: 'Email already registered' });
+      }
+  
+      const user = await User.create({ email }); // Creat user and pull into db
+      console.log(user.dataValues);
+      return res.status(201).json({ message: 'User created', user });
+    } catch (error) {
+      return res.status(500).json({ error: 'Server error' });
     }
-
-    const user = await User.create({ email }); // Creat user and pull into db
-    console.log(user.dataValues);
-    return res.status(201).json({ message: 'User created', user });
-  } catch (error) {
-    return res.status(500).json({ error: 'Server error' });
+  } else {
+    return res.status(400).json({ error: 'Email is not valid' });
   }
 });
 
@@ -54,7 +62,7 @@ router.get('/user/check', [
       return res.status(404).json({ exists: false, message: 'User not found' });
     }
   } catch (error) {
-    console.error('User verification error:', error);
+    console.error('User verification error: \n', error);
     return res.status(500).json({ error: 'Server error' });
   }
 });
@@ -71,9 +79,10 @@ router.get('/user/all', async (req, res) => {
       return res.status(404).json({ exists: false, message: 'Users not found' });
     }
   } catch {
-    console.error('User verification error:', error);
+    console.error('User verification error: \n', error);
     return res.status(500).json({ error: 'Server error' });
   }
 })
+
 
 module.exports = router;
